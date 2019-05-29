@@ -1,8 +1,10 @@
 import java.util.Scanner;
 
-public class Binarytodecimal{
+public class Binarytodecimal {
 
-    public static void main(String args[]) {
+    static int last_bite, decimal_output = 0;
+
+    public static void main(String[] args) {
 
                 // Program info
 
@@ -10,32 +12,30 @@ public class Binarytodecimal{
 
                 // Data processing
 
-        String binary;
-        int res = 0;
-        boolean succes_flag = true;
+        int main_bin_Input;
 
-        do {
+        System.out.print("Введите число в бинарном представлении: ");
+        Scanner scan = new Scanner(System.in);
+        main_bin_Input = scan.nextInt();
 
+        System.out.println("Число в десятичном представлении: " + recursive_bintodec(main_bin_Input, 0));
+    }
 
-            try {
+            // Recursive void
 
-                Scanner scan = new Scanner(System.in);
-                System.out.print("Введите число в бинарном формате: ");
-                binary = scan.next();
+    public static int recursive_bintodec(int binary_input, int count_input) {
 
-                res = Integer.parseInt(binary, 2);
+        if (binary_input > 0) {
 
-                System.out.println("Результат: " + res);
+            last_bite = binary_input&1;
+            binary_input = binary_input / 10;
+            decimal_output = decimal_output + (last_bite << count_input);
 
-                break;
+            return recursive_bintodec(binary_input, ++count_input);
 
-            } catch (java.lang.NumberFormatException e) {
+        }
 
-                System.out.println("Ошибка ввода: java.lang.NumberFormatException");
-
-            }
-
-        } while (succes_flag);
+        return decimal_output;
 
     }
 
